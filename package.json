@@ -1,0 +1,20 @@
+{
+  "name": "couchfs",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "main": "index.js",
+  "bin": "bin/couchfs",
+  "dependencies": {
+    "pogo": "~0.6.8",
+    "minimist": "0.0.8",
+    "needle": "~0.6.6"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepublish": "node_modules/.bin/pogo -c index.pogo"
+  },
+  "author": "",
+  "license": "BSD-2-Clause"
+}
