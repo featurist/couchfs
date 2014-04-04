@@ -13,22 +13,18 @@ uploadDirectory (dir)! =
 uploadFile (file)! =
     json = JSON.parse (fs.readFile (file, 'utf-8')!)
     id = path.basename (file, '.json')
-    console.log (id)
     url = "#(couchDb)/#(id)"
     response = needle.get (url, headers: {accept = "application/json"})!
 
-    console.log ('status code', response.statusCode)
     if (response.statusCode == 200)
-        console.log "updating json"
-        console.log (response.body :: String)
         json._id = response.body._id
         json._rev = response.body._rev
     
-    console.log (json)
+    response = needle.put (url, json, json: true, headers: {accept = "application/json"})!
 
-    response = needle.put (url, json, json: true)!
+    response.body
 
-    console.log (response.status)
-    console.log (response.body)
+responses = [dir <- dirs, jsonResponse <- uploadDirectory (dir)!, jsonResponse]
 
-[dir <- dirs, uploadDirectory (dir)!]
+for each @(response) in (responses)
+    console.log (response)
